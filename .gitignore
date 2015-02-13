@@ -1,2 +1,16 @@
-.idea/ *~ *.iml *.class *.log *.zip *.markers *.dat *.index *.tree *.resources *.prefs *.xml *.xmi *.txt
+.idea/
+*~
+*.iml
+*.class
+*.log
+*.zip
+*.markers
+*.dat
+*.index
+*.tree
+*.resources
+*.prefs
+*.xml
+*.xmi
+*.txt
 .metadata/
