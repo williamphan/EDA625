@@ -1,108 +1,48 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% University/School Laboratory Report
-% LaTeX Template
-% Version 3.1 (25/3/14)
-%
-% This template has been downloaded from:
-% http://www.LaTeXTemplates.com
-%
-% Original author:
-% Linux and Unix Users Group at Virginia Tech Wiki 
-% (https://vtluug.org/wiki/Example_LaTeX_chem_lab_report)
-%
-% License:
-% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
-%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt,a4paper]{article}
 
-%----------------------------------------------------------------------------------------
-%	PACKAGES AND DOCUMENT CONFIGURATIONS
-%----------------------------------------------------------------------------------------
-
-\documentclass{article}
-
-\usepackage{graphicx} % Required for the inclusion of images
-\usepackage{natbib} % Required to change bibliography style to APA
+\usepackage{anysize}
 \usepackage{amsmath} % Required for some math elements 
-
 \setlength\parindent{0pt} % Removes all indentation from paragraphs
 
-\renewcommand{\labelenumi}{\alph{enumi}.} % Make numbering in the enumerate environment by letter rather than number (e.g. section 6)
-
-%\usepackage{times} % Uncomment to use the Times New Roman font
-
-%----------------------------------------------------------------------------------------
-%	DOCUMENT INFORMATION
-%----------------------------------------------------------------------------------------
-
-\title{Determination of the Atomic \\ Weight of Magnesium \\ CHEM 101} % Title
-
-\author{John \textsc{Smith}} % Author name
-
+\title{Project 1: RSA} % Title
+\author{William Phan, Simon Wessel}
 \date{\today} % Date for the report
 
 \begin{document}
-
 \maketitle % Insert the title, author and date
 
-\begin{center}
-\begin{tabular}{l r}
-Date Performed: & January 1, 2012 \\ % Date the experiment was performed
-Partners: & James Smith \\ % Partner names
-& Mary Smith \\
-Instructor: & Professor Smith % Instructor/supervisor
-\end{tabular}
-\end{center}
+\setcounter{secnumdepth}{0}
 
-% If you wish to include an abstract, uncomment the lines below
-% \begin{abstract}
-% Abstract text
-% \end{abstract}
-
-%----------------------------------------------------------------------------------------
-%	SECTION 1
-%----------------------------------------------------------------------------------------
-
-\section{Assignment 1}
-
+\subsection{Assignment 1}
 When using Java's built-in power and modulo functions, the exponentiation will result in too large values, and cause an overflow. This means that the modulo operation is operating on the wrong dividend, and give an incorrect result.
- 
-%----------------------------------------------------------------------------------------
-%	SECTION 2
-%----------------------------------------------------------------------------------------
 
-\section{Assignment 2}
-
-Because x is declared outside the for loop, the value that is assigned to x in the beginning of each iteration doesn't go out of scope until the end of the method. This means that the previous value is still available in the following iteration. When comparing the statements algebraically, once notices that it's sufficient to just raise the stored value to the power of 2, instead of doing the whole computation from scratch.
-
-%----------------------------------------------------------------------------------------
-%	SECTION 3
-%----------------------------------------------------------------------------------------
-
-\section{Assignment 3}
-
-%alignl Initial value: ~ x = a^s mod n newline newline
-%alignl Iteration 1: newline
-%alignr j = 1 newline
-%alignr x = a^{ 2^j s } mod n = a^2s mod n = x^2 mod n newline newline
-%alignl Iteration 2: newline
-%alignr j = 2 newline
-%alignr x = a^{ 2^j s } mod n = a^4s mod n = (x^2)^2 mod n newline newline
-%alignl Iteration 3: newline
-%alignr j = 3 newline
-%alignr x = a^{ 2^j s } mod n = a^8s mod n = ((x^2)^2)^2 mod n newline newline
-%alignl ...
-
-Generating 100 primes with bit-lengths 512, 1024 and 2048 gives the following table
-
+\subsection{Assignment 2}
+Because x is declared outside the for loop, the value that is assigned to x in the beginning of each iteration doesn't go out of scope until the end of the method. This means that the previous value is still available in the following iteration. When comparing the statements algebraically, once notices that it's sufficient to just raise the stored value to the power of 2 to obtain the next $x$, instead of doing the whole computation from scratch.
+\\\\
+Initial value: $x = a^s mod n$ \\
+Iteration 1: \\
+$j = 1$ \\
+$x \equiv a^{ 2^j s } \mod n \equiv a^2s \mod n \equiv x^2 \mod n$ \\\\
+Iteration 2: \\
+$j = 2$ \\
+$x = a^{ 2^j s } \mod n = a^4s \mod n = (x^2)^2 \mod n$ \\\\
+Iteration 3: \\
+$j = 3$ \\
+$x = a^{ 2^j s } \mod n = a^8s \mod n = ((x^2)^2)^2 \mod n$ \\
+...
+\\\\
+Generating 100 primes with bit-lengths 512, 1024 and 2048 gives the following table \\\\
 \begin{tabular}{ l | r }
 	Bit length & Running time (s)\\ \hline
-	512 & 12 \\
-	1024 & 117 \\
-	2048 & 3 \\
+	512 & 12, 104 för 1000 \\
+	1024 & 117, 1395 för 1000 \\
+	2048 & 1920 \\
 \end{tabular}
+\\\\
+As the bit-length doubles, the running time for generating 100 primes of the selected bit-length seems to increase by a factor of roughly 10. ! tror 10 är fel !
 
-As the bitlength doubles, the running time for generating 100 primes of the selected bit-length seems to increase by a factor of roughly 10.
-assignment 5.4. funkar inte eftersom det då blir 0 upphöjt till något.
+\subsection{Assignment 5}
+
+The encryption will not work when s = 0. This is because $0^n = 0$ for all $n$s.
 
 \end{document}
