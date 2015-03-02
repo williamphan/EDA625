@@ -22,13 +22,13 @@ Because x is declared outside the for loop, the value that is assigned to x in t
 Initial value: $x = a^s mod n$ \\
 Iteration 1: \\
 $j = 1$ \\
-$x \equiv a^{ 2^j s } \mod n \equiv a^2s \mod n \equiv x^2 \mod n$ \\\\
+$x \equiv a^{ 2^j s } \mod n \equiv a^{ 2s } \mod n \equiv (a^s)^2 \mod n \equiv x^2 \mod n$ \\\\
 Iteration 2: \\
 $j = 2$ \\
-$x = a^{ 2^j s } \mod n = a^4s \mod n = (x^2)^2 \mod n$ \\\\
+$x \equiv a^{ 2^j s } \mod n \equiv a^{ 4s } \mod n \equiv ((a^s)^2)^2 \mod n \equiv (x^2)^2 \mod n$ \\\\
 Iteration 3: \\
 $j = 3$ \\
-$x = a^{ 2^j s } \mod n = a^8s \mod n = ((x^2)^2)^2 \mod n$ \\
+$x \equiv a^{ 2^j s } \mod n \equiv a^{ 8s } \mod n \equiv (((a^s)^2)^2)^2 \mod ((x^2)^2)^2 \mod n$ \\
 ...
 \\\\
 Generating 100 primes with bit-lengths 512, 1024 and 2048 gives the following table \\\\
