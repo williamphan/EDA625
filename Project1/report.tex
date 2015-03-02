@@ -32,18 +32,18 @@ $x \equiv a^{ 2^j s } \mod n \equiv a^{ 8s } \mod n \equiv (((a^s)^2)^2)^2 \mod 
 ...
 \\\\
 Generating 100 primes with bit-lengths 512, 1024 and 2048 gives the following table \\\\
-\begin{tabular}{ l | r }
-	Bit length & Running time (s)\\ \hline
-	512 & 12, 104 för 1000 \\
-	1024 & 117, 1395 för 1000 \\
-	2048 & 1920 \\
+\begin{tabular}{ l | l | l }
+	Bit length & Test 1 (s) & Test 2 (s)\\ \hline
+	512 & 11 & 11\\
+	1024 & 139 & 112\\
+	2048 & 1920 & 1836\\
 \end{tabular}
 \\\\
 
 %512: 10, 11, 11, 12, 12, 13
 %1024: 115, 112, 112
 %2048: 1836
-As the bit-length doubles, the running time for generating 100 primes of the selected bit-length seems to increase by a factor of roughly 10. ! tror 10 är fel !
+As the bit-length doubles, the running time for generating 100 primes of the selected bit-length seems to increase by a factor of roughly 13.
 
 \subsection{Assignment 3}
 Chosen prime numbers are: \\
