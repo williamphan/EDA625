@@ -14,7 +14,8 @@
 \setcounter{secnumdepth}{0}
 
 \subsection{Assignment 1}
-When using Java's built-in power and modulo functions, the exponentiation will result in too large values, and cause an overflow. This means that the modulo operation is operating on the wrong dividend, and give an incorrect result.
+When using Java's built-in power and modulo functions, the exponentiation will result in too large values, and cause an overflow. This means that the modulo operation is operating on the wrong dividend, and give an incorrect result. \\
+\textit{Example: Integer.MAX\_VALUE * Integer.MAX\_VALUE can't be stored in a Integer}
 
 \subsection{Assignment 2}
 Because x is declared outside the for loop, the value that is assigned to x in the beginning of each iteration doesn't go out of scope until the end of the method. This means that the previous value is still available in the following iteration. When comparing the statements algebraically, once notices that it's sufficient to just raise the stored value to the power of 2 to obtain the next $x$, instead of doing the whole computation from scratch.
