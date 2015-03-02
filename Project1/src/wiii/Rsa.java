@@ -15,17 +15,37 @@ public class Rsa {
     private static BigInteger TWO = BigInteger.valueOf(2);
 
     public static void main(String[] args) {
-        BigInteger test = new BigInteger(
-            "11182862512480597003773178052387982726589694921383705217490047793042113798162294194312694783507941533238408108336625664397694418952020819183396060834902353");
+//        BigInteger test = new BigInteger(
+//            "11182862512480597003773178052387982726589694921383705217490047793042113798162294194312694783507941533238408108336625664397694418952020819183396060834902353");
         long startMillis = System.currentTimeMillis();
-        System.out.println("test value is " + (checkPrime(test) ? "prime" : "not prime"));
-        System.out.println("Running...");
-        for (int i = 0; i < 100; i++) {
-            BigInteger temp = newPrime(512);
-            System.out.print("\r[" + (i < 9 ? "0" + String.valueOf(i + 1) : String.valueOf(i + 1))
-                + "%] Computing primes...");
-            System.out.println(temp);
-        }
+//        System.out.println("test value is " + (checkPrime(test) ? "prime" : "not prime"));
+//        System.out.println("Running...");
+//        BigInteger q = newPrime(512);
+//        BigInteger p = newPrime(512);
+        BigInteger p = new BigInteger("719678308201395992270525215645394703215551209811060024151853213659544131469"
+            + "3077053581923961745331720607226687877041023096195136049660250158819636144589893");
+        BigInteger q = new BigInteger("702203941078456275064536701177522602870107099260359205491274359859199591102"
+            + "5455679529540299006713316856397262016000570070262232362624748700235036719333997");
+        BigInteger N = q.multiply(p);
+        BigInteger e = TWO.pow(16).add(ONE);
+        BigInteger qMinusOne = q.subtract(ONE);
+        BigInteger pMinusOne = p.subtract(ONE);
+        BigInteger m = qMinusOne.multiply(pMinusOne);
+        BigInteger d = e.modInverse((m.divide(TWO)));
+        BigInteger s = ZERO;
+        BigInteger c = crypt(s, e, N);
+        System.out.println(N);
+        System.out.println("q: " + q);
+        System.out.println("p: " + p);
+        System.out.println("c: " + c);
+        System.out.println(decrypt(s, c, d, N));
+//        for (int i = 0; i < 100; i++) {
+//            newPrime(1024);
+////            BigInteger temp = newPrime(512);
+//            System.out.print("\r[" + (i < 9 ? "0" + String.valueOf(i + 1) : String.valueOf(i + 1))
+//                + "%] Computing primes...");
+////            System.out.println(temp);
+//        }
         System.out.println("\nTotal time: " + ((System.currentTimeMillis() - startMillis) / 1000));
     }
 
@@ -119,5 +139,13 @@ public class Rsa {
             //(exp_mod(a,(x div 2) ,n)^2) mod n
             return exp_mod(a, x.divide(TWO), n).pow(2).mod(n);
         }
+    }
+
+    public static BigInteger crypt(BigInteger s, BigInteger e, BigInteger N){
+        return s.modPow(e, N);
+    }
+
+    public static boolean decrypt(BigInteger s, BigInteger c, BigInteger d, BigInteger N){
+        return c.modPow(d, N).equals(s);
     }
 }
