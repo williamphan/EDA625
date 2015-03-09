@@ -58,6 +58,6 @@ $s = $ 765436345
 \\\\$z = c^d\mod N = $ ... $ = $ 765436345
 \\\\$z = s$, which means the cipher text was decrypted succesfully.
 \\\\ 
-The encryption will not work when s = 0. This is because $0^n = 0$ for all $n$s.
+When z = s, the message was encrypted and decrypted successfully. However, if $s = 0$, then $c$ will also be $0$, and in the end $z$ will be $0$. This is due to the fact that $c = s^e = 0^e = 0$. It is thus a bad idea to encrypt $0$, since it will yield $0$ (which is the clear-text) as the cipher-text.
 
 \end{document}
