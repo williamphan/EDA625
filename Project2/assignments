@@ -1,0 +1,22 @@
+2.1. Serial number: 15772073244864896046 (0xdae1a90d5b9d5c2e)
+2.2. Subject and issuer are the same
+2.3. Signing algorithm: RSA
+2.4. Hashing algorithm: sha256
+2.5. 65537
+2.6. Subject key identifier:
+     57:25:86:90:20:D1:D7:7E:28:91:67:CB:2E:2C:28:77:ED:0F:55:CD
+
+     Authority key identifier:
+     keyid:57:25:86:90:20:D1:D7:7E:28:91:67:CB:2E:2C:28:77:ED:0F:55:CD
+
+     Basic constraints:
+     CA:TRUE
+
+3.2. It is the subject key identifier (and authority as it's self-signed) of the root certificate.
+3.3. No need for a new private key. The certificates are different.
+3.6. No. However it's important that the client has the server's root CA marked as trusted, and vice versa.
+
+5.   The distributor of the Java implementation decides what goes into the default TrustStore. Oracle points out that one has to be on control over the location where cacerts and jssecacerts are stored. In adition, one should always set the javax.net.ssl.trustStore property of secure clients and servers to maintain control over trusted certificates.
+https://access.redhat.com/documentation/en-US/Fuse_MQ_Enterprise/7.1/html/Security_Guide/files/SSL-SysProps.html
+
+6.   RootCA: Needs its password to sign other certificates. If one is using the Java trust store, with a single certificate, one still needs two passwords. Managing several hard-to-guess passwords is risky. To prevent forgetting them, they need to be written down, but where can they be written and stored securely?
