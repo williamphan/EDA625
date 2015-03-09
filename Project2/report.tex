@@ -1,0 +1,63 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage{anysize}
+\usepackage{amsmath} % Required for some math elements 
+\setlength\parindent{0pt} % Removes all indentation from paragraphs
+
+\title{Project 1: RSA} % Title
+\author{William Phan, Simon Wessel}
+\date{\today} % Date for the report
+
+\begin{document}
+\maketitle % Insert the title, author and date
+
+\setcounter{secnumdepth}{0}
+
+\subsection{Assignment 1}
+When using Java's built-in power and modulo functions, the exponentiation will result in too large values, and cause an overflow. This means that the modulo operation is operating on the wrong dividend, and give an incorrect result. 
+\\
+\textit{Example: Integer.MAX\_VALUE * Integer.MAX\_VALUE can't be stored in a Integer}
+
+\subsection{Assignment 2}
+Because x is declared outside the for loop, the value that is assigned to x in the beginning of each iteration doesn't go out of scope until the end of the method. This means that the previous value is still available in the following iteration. When comparing the statements algebraically, once notices that it's sufficient to just raise the stored value to the power of 2 to obtain the next $x$, instead of doing the whole computation from scratch.
+\\\\
+Initial value: $x = a^s mod n$ \\
+Iteration 1: \\
+$j = 1$ \\
+$x \equiv a^{ 2^j s } \mod n \equiv a^{ 2s } \mod n \equiv (a^s)^2 \mod n \equiv x^2 \mod n$ \\\\
+Iteration 2: \\
+$j = 2$ \\
+$x \equiv a^{ 2^j s } \mod n \equiv a^{ 4s } \mod n \equiv ((a^s)^2)^2 \mod n \equiv (x^2)^2 \mod n$ \\\\
+Iteration 3: \\
+$j = 3$ \\
+$x \equiv a^{ 2^j s } \mod n \equiv a^{ 8s } \mod n \equiv (((a^s)^2)^2)^2 \mod n \equiv ((x^2)^2)^2 \mod n$ \\
+...
+\\\\
+Generating 100 primes with bit-lengths 512, 1024 and 2048 gives the following table \\\\
+\begin{tabular}{ l | l | l | l}
+	Bit length & Test 1 (s) & Test 2 (s) & O(n)\\ \hline
+	512 & 11 & 11 & -\\
+	1024 & 139 & 112 & $139/11 \approx 12,6 \implies O(n) = n^{3.65}$\\
+	2048 & 1920 & 1836 & $1920/139 \approx 13,8 \implies O(n) = n^{3.79}$\\
+\end{tabular}
+\\\\
+
+%512: 10, 11, 11, 12, 12, 13
+%1024: 115, 112, 112
+%2048: 1836
+As the bit-length doubles, the running time for generating 100 primes of the selected bit-length seems to increase by a factor of roughly 13 which gives us a time complexity of about $n^{3,7}$.\\
+
+\subsection{Assignment 3}
+Chosen prime numbers are: \\
+$p = $ 719678308201395992270525215645394703215551209811060024151853213659544131469\\3077053581923961745331720607226687877041023096195136049660250158819636144589893\\\\
+$q = $ 702203941078456275064536701177522602870107099260359205491274359859199591102\\5455679529540299006713316856397262016000570070262232362624748700235036719333997
+\subsection{Assignment 5}
+$s = $ 765436345
+\\\\$N =$ 505360944327696166780197487839883727248422980020689215634246135586714878915\\9453699592259770073215646957931636862827734344516221298634010259437631767085623\\0203590699107685803193972699165793460517366400867184466787956577830651630145337\\452922588735770398871027154188756158806905495749384449382600064665657492321 
+\\\\$c = s^e\mod N = 765436345^{2^{16}+1} \mod N = $ 46264132725924028641369646478191955140019\\03239357258886232362629707219951451324787849119062958930287256057337753669580078\\64113380618981078309044866422724127895108873098657610216839384169055634470772141\\84750216937870083471582638752171228008594460750885106419857239108306482503316125\\138878249637624167787511873
+\\\\$z = c^d\mod N = $ ... $ = $ 765436345
+\\\\$z = s$, which means the cipher text was decrypted succesfully.
+\\\\ 
+When z = s, the message was encrypted and decrypted successfully. However, if $s = 0$, then $c$ will also be $0$, and in the end $z$ will be $0$. This is due to the fact that $c = s^e = 0^e = 0$. It is thus a bad idea to encrypt $0$, since it will yield $0$ (which is the clear-text) as the cipher-text.
+
+\end{document}
