@@ -1,7 +1,9 @@
 package wiiii;
 //==========================================================================
 //Sample tlsclient using sslsockets
+
 import javax.net.ssl.KeyManager;
+import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
@@ -18,12 +20,16 @@ public class tlsclient {
 
     public static void main(String[] args) throws Exception {
         // TrustStore
-        char[] passphrase_ts = "changeit".toCharArray();
+        char[] passphrase_ts = "TrustPass".toCharArray();
         KeyStore ts = KeyStore.getInstance("JKS");
         ts.load(new FileInputStream("truststore.jks"), passphrase_ts);
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
         tmf.init(ts);
+
         // Keystore  ????
+        KeyManagerFactory kmf =
+            KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
+        kmf.init(ts, passphrase_ts);
 
         SSLContext context = SSLContext.getInstance("TLS");
         TrustManager[] trustManagers = tmf.getTrustManagers();

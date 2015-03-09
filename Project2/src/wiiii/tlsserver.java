@@ -11,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
+import java.net.Socket;
 import java.security.KeyStore;
 
 public class tlsserver {
@@ -18,15 +19,16 @@ public class tlsserver {
     private static final int PORT = 8043;
 
     public static void main(String[] args) throws Exception {
+
         //set necessary truststore properties - using JKS
-        //System.setProperty("javax.net.ssl.trustStore","truststore.jks");
-        //System.setProperty("javax.net.ssl.trustStorePassword","changeit");
+        System.setProperty("javax.net.ssl.trustStore", "truststore.jks");
+        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
         // set up key manager to do server authentication
         SSLContext context;
         KeyManagerFactory kmf;
         KeyStore ks;
         // First we need to load a keystore
-        char[] passphrase = "123456".toCharArray();
+        char[] passphrase = "yeehee".toCharArray();
         ks = KeyStore.getInstance("JKS");
         ks.load(new FileInputStream("serverKeyStore.jks"), passphrase);
         // Initialize a KeyManagerFactory with the KeyStore
@@ -40,11 +42,10 @@ public class tlsserver {
         SSLServerSocketFactory ssf = context.getServerSocketFactory();
         // Create socket and Wait for a connection
         ServerSocket ss = ssf.createServerSocket(PORT);
-        //     Socket s = ss.accept();
+//             Socket s = ss.accept();
 
         // alterternative: needed to set SSL/TLS behaviour
         SSLSocket s = (SSLSocket) ss.accept();
-
 
         // Get the input stream. En/Decryption happens transparently.
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
