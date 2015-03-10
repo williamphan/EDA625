@@ -35,7 +35,16 @@
 The distributor of the Java implementation decides what goes into the default TrustStore. Oracle points out that one has \\to be on control over the location where cacerts and jssecacerts are stored. In adition, one should always set the javax.net.ssl.trustStore property of secure clients and servers to maintain control over trusted certificates.
 $https://access.redhat.com/documentation/en-US/Fuse_MQ_Enterprise/7.1/html/Security_Guide/files/SSL-SysProps.html$
 \subsection{Assignment 6}
+Forgetting any critical password will have major consequences.
 \subsection{Assignment 7}
-\subsection{Assignment 8} %Initial connect: Syn packages.
+CertificateExpiredException (?)java.security.cert.CertificateExpiredException: NotAfter: Tue Mar 10 12:44:41 CET 2015
+\subsection{Assignment 8} 
+\begin{itemize}
+\item \textbf{Key exchange method and packets}\\The first three packets are standard TCP connection establishment. The client sends its hello to which the server responds with its  own hello. Afterwards, the client sends the \textit{PreMasterSecret} and a \textit{ChangeCipherSpec}. The server responds with a \textit{ChangeCipherSpec}, and both parties end with a \textit{Done} package.
+\\The number of packages required for key exchange and \textit{ChangeCipherSpec} varies depending on the cipher suite being used. 
+\item \textbf{Certificate information}\\Can be found in the hello packages. The server sends its own certificate before sending the CA certificate.
+\item \textbf{Cipher suite}
+\end{itemize}
+
 \subsection{Assignment 9}
 \end{document}
