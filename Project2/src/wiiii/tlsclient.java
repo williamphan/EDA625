@@ -8,7 +8,9 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.security.KeyStore;
@@ -39,20 +41,26 @@ public class tlsclient {
         SSLSocketFactory sf = context.getSocketFactory();
         Socket s = sf.createSocket(HOST, PORT);
 
-        OutputStream toserver = s.getOutputStream();
+        OutputStream toServer = s.getOutputStream();
+        BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 
-
-        toserver.write("\nConnection established.\n\n".getBytes());
         System.out.print("\nConnection established.\n\n");
-
+        String line = "";
         int inCharacter = 0;
         inCharacter = System.in.read();
         while (inCharacter != '~') {
-            toserver.write(inCharacter);
-            toserver.flush();
+            toServer.write(inCharacter);
+            if (inCharacter == '\n') {
+                toServer.flush();
+                line += in.readLine();
+//                System.out.println(line);
+            }
             inCharacter = System.in.read();
         }
-        toserver.close();
+        System.out.println("Echo: " + line);
+        System.out.println("Closing down...");
+        toServer.close();
+        in.close();
         s.close();
     }
 }
