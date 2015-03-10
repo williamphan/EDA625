@@ -57,7 +57,7 @@ public class tlsclient {
             }
             inCharacter = System.in.read();
         }
-        System.out.println("Echo: " + line);
+        System.out.println("Echo: " + line.substring(0, line.length()-2));
         System.out.println("Closing down...");
         toServer.close();
         in.close();
