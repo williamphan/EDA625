@@ -25,12 +25,12 @@
      keyid:57:25:86:90:20:D1:D7:7E:28:91:67:CB:2E:2C:28:77:ED:0F:55:CD\\
      Basic constraints:
      CA:TRUE
-\\
+     
 \subsection{Assignment 3}
 \textbf{3.2.} It is the subject key identifier (and authority as it's self-signed) of the root certificate.\\
 \textbf{3.3.} No need for a new private key. The certificates are different.\\
-\textbf{3.6.} No, however it's important that the client has the server's root CA marked as trusted, and vice versa.\\
-\\\\
+\textbf{3.6.} No, however it's important that the client has the server's root CA marked as trusted, and vice versa.
+
 \subsection{Assignment 5}
 The distributor of the Java implementation decides what goes into the default TrustStore. Oracle points out that one has \\to be on control over the location where cacerts and jssecacerts are stored. In adition, one should always set the javax.net.ssl.trustStore property of secure clients and servers to maintain control over trusted certificates.
 $https://access.redhat.com/documentation/en-US/Fuse_MQ_Enterprise/7.1/html/Security_Guide/files/SSL-SysProps.html$
@@ -40,10 +40,12 @@ Forgetting any critical password will have major consequences.
 CertificateExpiredException (?)java.security.cert.CertificateExpiredException: NotAfter: Tue Mar 10 12:44:41 CET 2015
 \subsection{Assignment 8} 
 \begin{itemize}
-\item \textbf{Key exchange method and packets}\\The first three packets are standard TCP connection establishment. The client sends its hello to which the server responds with its  own hello. Afterwards, the client sends the \textit{PreMasterSecret} and a \textit{ChangeCipherSpec}. The server responds with a \textit{ChangeCipherSpec}, and both parties end with a \textit{Done} package.
-\\The number of packages required for key exchange and \textit{ChangeCipherSpec} varies depending on the cipher suite being used. 
-\item \textbf{Certificate information}\\Can be found in the hello packages. The server sends its own certificate before sending the CA certificate.
-\item \textbf{Cipher suite}
+\item \textbf{Key exchange method and packets}\\The first three packets are standard TCP connection establishment. The client sends \textit{ClientHello} to which the server responds with \textit{ServerHello, Certificate, ServerKeyEchange, HelloDone}. The client sends \textit{ClientKeyExchange}. \textit{EncryptedHandshakeMessage}s are exchanged in accordance with the Diffie-Hellman algorithm, which the automatically chosen cipher suite uses.
+\item \textbf{Certificate information}\\
+The server certificate can be found in the \textit{ServerHello} package. The server sends its own certificate before sending the CA certificate.
+\item \textbf{Cipher suite}\\
+When switching from automatically choosing \texttt{TLS\_ECDHE\_RSA\_WITH\_AES\_128\_CBC\_SHA256} to
+\texttt{TLS\_RSA\_WITH\_AES\_128\_CBC\_SHA256}, the packets look somewhat different. The server doesn't send \textit{ServerKeyExchange}. Instead, the client sends \textit{ClientKeyExchange}. This difference is due to the handshake algorithms used. The latter example uses RSA, and thus only the client has to send an encrypted message to the server. The Diffie-Hellman algorithm used in the former example relies on both parties exchanging parts of what later becomes the key.
 \end{itemize}
 
 \subsection{Assignment 9}
