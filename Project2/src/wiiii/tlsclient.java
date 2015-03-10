@@ -43,8 +43,9 @@ public class tlsclient {
 
         OutputStream toServer = s.getOutputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-
+        //                toServer.write("\nConnection established.\n\n".getBytes());
         System.out.print("\nConnection established.\n\n");
+
         String line = "";
         int inCharacter = 0;
         inCharacter = System.in.read();
@@ -53,11 +54,13 @@ public class tlsclient {
             if (inCharacter == '\n') {
                 toServer.flush();
                 line += in.readLine();
-//                System.out.println(line);
+                //                System.out.println(line);
             }
             inCharacter = System.in.read();
         }
-        System.out.println("Echo: " + line.substring(0, line.length()-2));
+        if (line.length() > 2) {
+            System.out.println("Echo: " + line.substring(0, line.length() - 2));
+        }
         System.out.println("Closing down...");
         toServer.close();
         in.close();

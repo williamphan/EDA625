@@ -21,15 +21,14 @@ public class tlsserver {
     public static void main(String[] args) throws Exception {
 
         //set necessary truststore properties - using JKS
-        //        System.setProperty("javax.net.ssl.trustStore", "truststore.jks");
-        //        System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
+        //                System.setProperty("javax.net.ssl.trustStore", "truststore.jks");
+        //                System.setProperty("javax.net.ssl.trustStorePassword", "changeit");
         // set up key manager to do server authentication
         SSLContext context;
         KeyManagerFactory kmf;
         KeyStore ks;
         // First we need to load a keystore
         char[] passphrase = "yeehee".toCharArray();
-        //        char[] passphrase = "testtest".toCharArray();
         ks = KeyStore.getInstance("JKS");
         ks.load(new FileInputStream("serverKeyStore-expire.jks"), passphrase);
         // Initialize a KeyManagerFactory with the KeyStore
@@ -48,7 +47,7 @@ public class tlsserver {
         SSLSocket s = (SSLSocket) ss.accept();
         //        String[] enabledCiphers = new String[] {"TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA",
         //            "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA", "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"};
-        //        s.setEnabledCipherSuites(new String[] {"TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA"});
+        s.setEnabledCipherSuites(new String[] {"TLS_ECDHE_RSA_WITH_3DES_EDE_CBC_SHA"});
         //        s.setEnabledCipherSuites(new String[] {"TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA"});
         //        s.setEnabledCipherSuites(new String[] {"TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256"});
         //s.setEnabledCipherSuites(enabledCiphers);
@@ -59,7 +58,7 @@ public class tlsserver {
         //                for(String cipher : enabled){
         //                    System.out.println(cipher);
         //                }
-        System.out.print("\nConnection established.\n\n");
+                System.out.print("\nConnection established.\n\n");
 
 
         PrintWriter out = new PrintWriter(s.getOutputStream(), true);
