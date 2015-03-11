@@ -49,4 +49,11 @@ When switching from automatically choosing \texttt{TLS\_ECDHE\_RSA\_WITH\_AES\_1
 \end{itemize}
 
 \subsection{Assignment 9}
+\begin{itemize}
+\item \textbf{Key exchange method and packets}\\ 
+Same as above, but the server also sends a request of certificate in the hello package. Depending on the cipher suite, the client will then send its certificate to the server together with the key exchange.
+\item \textbf{Certificate information}\\
+The server sends its certificate to the client along with a request, to which the client will respond with a certificate of its own.
+The order of the certificates from the client is the same as the server, the client's certificate appears before the CA.  
+\end{itemize}
 \end{document}
