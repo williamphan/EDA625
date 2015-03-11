@@ -24,7 +24,8 @@
      \indent Authority key identifier:
      keyid:57:25:86:90:20:D1:D7:7E:28:91:67:CB:2E:2C:28:77:ED:0F:55:CD\\
      Basic constraints:
-     CA:TRUE
+     CA:TRUE\\
+     The basic constraints extension is a way for a CA to control how certificates it signs are used. If CA is TRUE, the certificate can act as CA. There are also other values, for example pathlen and critical.
      
 \subsection{Assignment 3}
 \textbf{3.2.} It is the subject key identifier (and authority as it's self-signed) of the root certificate.\\
@@ -35,14 +36,14 @@
 The distributor of the Java implementation decides what goes into the default TrustStore. Oracle points out that one has to be on control over the location where cacerts and jssecacerts are stored. In adition, one should always set the javax.net.ssl.trustStore property of secure clients and servers to maintain control over trusted certificates.
 \\{\scriptsize$https://access.redhat.com/documentation/en-US/Fuse_MQ_Enterprise/7.1/html/Security_Guide/files/SSL-SysProps.html$}
 \subsection{Assignment 6}
-The purpose of the RootCA is to put restrictions on who can sign and what gets signed. This is important to maintain trust in the RootCA. In addition to the RootCA passphrase, the private key is also needed.\\
-The purpose of the trust stores is to control whom to trust. The server and client use separate trust stores, and hence separate passphrases. The key tool forces the creator of the trust store to choose a passphrase.\\
-The key stores store the certificates. When creating
-For instance, if CA's key is not protected with a password, anything can be signed with\\
--------------------\\
-The server and client each need to remember three passwords; TrustStore, KeyStore and key. It is possible to use the same passphrase for the key store as for the key, thus only needing two passwords. Using a KeyStore is considered a security enhancement, since keys and certificates cannot be acessed or manipulated without the KeyStore passphrase. This is important as the holder of a certificate, I want to be sure that the certificate is only used when I say so. Another benefit is that many files (certificate and key) are stored in one place, and are thus easier to manage.
+The server and client each need to remember three passwords; TrustStore, KeyStore and key. It is possible to use the same passphrase for the key store as for the key, thus only needing two passwords. Using a KeyStore is considered a security enhancement, since keys and certificates cannot be acessed or manipulated without the KeyStore passphrase. As the holder of a certificate, I want to be sure that the certificate is only used when I say so. Another benefit is that many files (certificate and key files) are stored in one place, and are thus easier to manage.
 \subsection{Assignment 7}
-CertificateExpiredException (?)java.security.cert.CertificateExpiredException: NotAfter: Tue Mar 10 12:44:41 CET 2015
+When using an expired certificate, the following exception is thrown:
+\begin{verbatim}
+java.security.cert.CertificateExpiredException:
+NotAfter: Tue Mar 10 12:44:41 CET 2015
+\end{verbatim}
+
 \subsection{Assignment 8} 
 \begin{itemize}
 \item \textbf{Key exchange method and packets}\\The first three packets are standard TCP connection establishment. The client sends \textit{ClientHello} to which the server responds with \textit{ServerHello, Certificate, ServerKeyEchange, HelloDone}. The client sends \textit{ClientKeyExchange}. \textit{EncryptedHandshakeMessage}s are exchanged in accordance with the Diffie-Hellman algorithm, which the automatically chosen cipher suite uses.
@@ -61,4 +62,426 @@ Same as above, but the server also sends a request of certificate in the hello p
 The server sends its certificate to the client along with a request, to which the client will respond with a certificate of its own.
 The order of the certificates from the client is the same as the server, the client's certificate appears before the CA.  
 \end{itemize}
+
+\newpage
+\section[Appendix A: Server certificate]{Appendix A: Server certificate\footnote{This certificate was created with no subject information.}}
+\begin{verbatim}
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=SE, ST=Scania, L=Lund, O=LU, OU=CS,
+        CN=Demo CA/emailAddress=ca@demoland.se
+        Validity
+            Not Before: Mar  9 11:52:27 2015 GMT
+            Not After : Mar  8 11:52:27 2016 GMT
+        Subject: C=Unknown, ST=Unknown, L=Unknown, O=Unknown, OU=Unknown, CN=Unknown
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:e7:ea:6d:7d:d1:4e:3f:a9:5f:6b:79:60:d1:a9:
+                    6f:e4:79:ac:b8:5e:8f:60:2c:f7:7b:aa:1d:40:6a:
+                    65:55:4f:b6:10:4f:2c:29:b7:5c:f5:bd:23:01:b9:
+                    9e:5d:8a:5b:f7:e9:d2:bc:74:50:56:c6:ef:a5:61:
+                    99:20:6d:28:00:47:7d:0e:55:74:5a:54:2d:bb:aa:
+                    b3:e3:ed:dd:89:16:c7:b8:26:41:1c:a1:4e:8e:69:
+                    ef:97:ab:96:3c:67:33:16:ba:6a:78:c5:48:b5:b0:
+                    05:2f:80:ee:e0:8d:ed:b5:1e:d6:24:50:0e:7d:b1:
+                    84:21:5a:87:79:c8:4d:bf:21
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                keyid:57:25:86:90:20:D1:D7:7E:28:91:67:CB:2E:2C:28:77:ED:0F:55:CD
+
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Key Encipherment, Key Agreement
+    Signature Algorithm: sha1WithRSAEncryption
+         6f:2b:fb:3f:2d:00:34:96:4a:8e:7d:8a:79:0d:c3:df:8f:fa:
+         6d:fa:3c:33:64:15:6a:80:a3:e2:fa:ed:1d:f9:91:f0:30:c8:
+         65:ed:91:d6:ee:66:a3:24:5c:55:e0:20:4a:8a:88:d1:8f:f4:
+         63:d8:be:60:5a:3a:b2:e2:4e:79:95:56:aa:a8:a0:b3:d0:d3:
+         1c:84:62:9e:12:a2:45:29:a1:a3:e9:c7:1c:f1:53:01:29:fc:
+         a1:9d:6c:b6:de:7c:f1:a9:a3:71:4f:8c:63:3a:38:8f:21:a0:
+         aa:7c:5b:f0:b9:fb:ae:48:d2:a6:cb:6e:24:3b:62:9a:57:3c:
+         b0:88:bc:8b:e1:7a:b5:6f:0d:79:96:b8:5d:94:d4:76:fa:53:
+         11:ea:ab:44:f2:cc:76:dc:b8:7a:a5:50:7c:10:b9:df:5a:21:
+         f6:0a:5b:5b:65:e2:38:9d:22:ac:81:0b:92:c0:45:4c:c7:c4:
+         36:b8:47:6d:9c:e7:0f:04:68:09:60:62:c4:b1:47:db:93:7d:
+         18:8e:46:8f:d8:e0:2e:a5:b0:9b:4f:26:4a:30:6a:43:c9:2f:
+         52:96:db:49:12:4b:d7:71:61:3a:21:aa:53:af:ea:4d:2a:dc:
+         09:f8:c8:96:b4:fa:7c:1a:c9:c8:f9:6b:95:97:13:c4:90:9f:
+         f0:a5:cc:a3
+-----BEGIN CERTIFICATE-----
+MIIDFjCCAf6gAwIBAgIBATANBgkqhkiG9w0BAQUFADB4MQswCQYDVQQGEwJTRTEP
+MA0GA1UECAwGU2NhbmlhMQ0wCwYDVQQHDARMdW5kMQswCQYDVQQKDAJMVTELMAkG
+A1UECwwCQ1MxEDAOBgNVBAMMB0RlbW8gQ0ExHTAbBgkqhkiG9w0BCQEWDmNhQGRl
+bW9sYW5kLnNlMB4XDTE1MDMwOTExNTIyN1oXDTE2MDMwODExNTIyN1owbDEQMA4G
+A1UEBhMHVW5rbm93bjEQMA4GA1UECBMHVW5rbm93bjEQMA4GA1UEBxMHVW5rbm93
+bjEQMA4GA1UEChMHVW5rbm93bjEQMA4GA1UECxMHVW5rbm93bjEQMA4GA1UEAxMH
+VW5rbm93bjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEA5+ptfdFOP6lfa3lg
+0alv5HmsuF6PYCz3e6odQGplVU+2EE8sKbdc9b0jAbmeXYpb9+nSvHRQVsbvpWGZ
+IG0oAEd9DlV0WlQtu6qz4+3diRbHuCZBHKFOjmnvl6uWPGczFrpqeMVItbAFL4Du
+4I3ttR7WJFAOfbGEIVqHechNvyECAwEAAaM7MDkwHwYDVR0jBBgwFoAUVyWGkCDR
+134okWfLLiwod+0PVc0wCQYDVR0TBAIwADALBgNVHQ8EBAMCA6gwDQYJKoZIhvcN
+AQEFBQADggEBAG8r+z8tADSWSo59inkNw9+P+m36PDNkFWqAo+L67R35kfAwyGXt
+kdbuZqMkXFXgIEqKiNGP9GPYvmBaOrLiTnmVVqqooLPQ0xyEYp4SokUpoaPpxxzx
+UwEp/KGdbLbefPGpo3FPjGM6OI8hoKp8W/C5+65I0qbLbiQ7YppXPLCIvIvherVv
+DXmWuF2U1Hb6UxHqq0TyzHbcuHqlUHwQud9aIfYKW1tl4jidIqyBC5LARUzHxDa4
+R22c5w8EaAlgYsSxR9uTfRiORo/Y4C6lsJtPJkowakPJL1KW20kSS9dxYTohqlOv
+6k0q3An4yJa0+nwaycj5a5WXE8SQn/ClzKM=
+-----END CERTIFICATE-----
+\end{verbatim}
+
+\newpage
+\section{Appendix B: Client certificate}
+\begin{verbatim}
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 5 (0x5)
+    Signature Algorithm: sha1WithRSAEncryption
+        Issuer: C=SE, ST=Scania, L=Lund, O=LU, OU=CS,
+        CN=Demo CA/emailAddress=ca@demoland.se
+        Validity
+            Not Before: Mar 10 14:15:39 2015 GMT
+            Not After : Mar  9 14:15:39 2016 GMT
+        Subject: C=CL, ST=Clientia, L=Client City, O=Clientstuff, OU=Clients,
+        CN=Client Clientson
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:81:4b:42:35:db:74:7c:f5:32:89:9b:e1:8b:3e:
+                    1c:32:f6:2c:a3:4e:2d:8d:6c:a8:80:cc:e3:a1:66:
+                    1e:2d:17:8b:82:83:d2:8f:fa:03:c6:32:d4:1c:d7:
+                    13:b5:27:7f:c4:a5:9c:b1:e3:c5:e4:09:a0:4b:cc:
+                    f6:e7:72:ab:62:fb:05:79:9a:30:9a:0d:bb:a6:7e:
+                    fa:a1:56:8f:98:87:9a:d1:f2:59:e1:c2:a5:3d:ce:
+                    9a:a6:09:af:d5:f6:02:68:46:4d:0e:2f:62:77:4f:
+                    44:5c:0c:d3:f9:e0:1b:dd:47:5b:e0:36:31:fc:2a:
+                    53:8e:02:9d:5c:39:52:44:11
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                keyid:57:25:86:90:20:D1:D7:7E:28:91:67:CB:2E:2C:28:77:ED:0F:55:CD
+
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Key Usage: 
+                Digital Signature, Non Repudiation, Data Encipherment
+    Signature Algorithm: sha1WithRSAEncryption
+         27:94:0a:76:f7:b9:a5:da:c7:3a:b9:27:ff:a1:d4:c2:e0:c8:
+         bb:1f:95:c3:ec:8b:05:18:5a:9a:63:e8:4a:bf:b4:8c:d4:8f:
+         68:a2:8e:60:e8:cd:c4:a5:97:d7:1d:86:40:0e:c8:a8:63:a5:
+         36:07:22:05:da:15:a4:cf:10:1e:bb:97:76:bb:93:42:c9:0b:
+         6f:8a:72:6a:36:d9:d3:b8:01:bd:13:77:36:9f:58:ad:9e:f8:
+         cf:fa:4d:cd:0d:41:ca:cd:b4:c9:a5:5a:6a:d3:35:4f:44:c2:
+         cb:9a:9c:76:ee:ca:05:af:76:ce:7f:06:91:eb:29:f4:3f:17:
+         9c:ac:51:30:8d:e4:5c:a3:2e:79:9a:d5:06:98:41:0f:9f:22:
+         ea:86:80:33:f4:b4:a2:1d:42:89:37:73:55:09:39:49:ab:32:
+         05:17:36:95:e7:36:24:91:07:26:c4:88:0c:c8:f8:c5:80:1f:
+         4a:42:7f:96:20:8e:14:24:08:29:f5:69:68:b8:7f:b6:8d:b1:
+         96:ad:c1:0e:6c:23:ca:4e:be:d7:c3:8e:bf:97:33:b2:5d:66:
+         c9:ca:56:8f:d3:a6:1a:33:66:23:ba:30:3c:e0:c3:9d:1d:c7:
+         48:1c:74:ee:ab:2a:06:a0:a8:49:f4:e5:aa:ea:f8:16:e3:ff:
+         26:ff:d1:36
+-----BEGIN CERTIFICATE-----
+MIIDIzCCAgugAwIBAgIBBTANBgkqhkiG9w0BAQUFADB4MQswCQYDVQQGEwJTRTEP
+MA0GA1UECAwGU2NhbmlhMQ0wCwYDVQQHDARMdW5kMQswCQYDVQQKDAJMVTELMAkG
+A1UECwwCQ1MxEDAOBgNVBAMMB0RlbW8gQ0ExHTAbBgkqhkiG9w0BCQEWDmNhQGRl
+bW9sYW5kLnNlMB4XDTE1MDMxMDE0MTUzOVoXDTE2MDMwOTE0MTUzOVoweTELMAkG
+A1UEBhMCQ0wxETAPBgNVBAgTCENsaWVudGlhMRQwEgYDVQQHEwtDbGllbnQgQ2l0
+eTEUMBIGA1UEChMLQ2xpZW50c3R1ZmYxEDAOBgNVBAsTB0NsaWVudHMxGTAXBgNV
+BAMTEENsaWVudCBDbGllbnRzb24wgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGB
+AIFLQjXbdHz1Momb4Ys+HDL2LKNOLY1sqIDM46FmHi0Xi4KD0o/6A8Yy1BzXE7Un
+f8SlnLHjxeQJoEvM9udyq2L7BXmaMJoNu6Z++qFWj5iHmtHyWeHCpT3OmqYJr9X2
+AmhGTQ4vYndPRFwM0/ngG91HW+A2MfwqU44CnVw5UkQRAgMBAAGjOzA5MB8GA1Ud
+IwQYMBaAFFclhpAg0dd+KJFnyy4sKHftD1XNMAkGA1UdEwQCMAAwCwYDVR0PBAQD
+AgTQMA0GCSqGSIb3DQEBBQUAA4IBAQAnlAp297ml2sc6uSf/odTC4Mi7H5XD7IsF
+GFqaY+hKv7SM1I9ooo5g6M3EpZfXHYZADsioY6U2ByIF2hWkzxAeu5d2u5NCyQtv
+inJqNtnTuAG9E3c2n1itnvjP+k3NDUHKzbTJpVpq0zVPRMLLmpx27soFr3bOfwaR
+6yn0PxecrFEwjeRcoy55mtUGmEEPnyLqhoAz9LSiHUKJN3NVCTlJqzIFFzaV5zYk
+kQcmxIgMyPjFgB9KQn+WII4UJAgp9WlouH+2jbGWrcEObCPKTr7Xw46/lzOyXWbJ
+ylaP06YaM2YjujA84MOdHcdIHHTuqyoGoKhJ9OWq6vgW4/8m/9E2
+-----END CERTIFICATE-----
+\end{verbatim}
+
+\newpage
+\section{Appendix C: Server KeyStore}
+\begin{verbatim}
+Keystore type: JKS
+Keystore provider: SUN
+
+Your keystore contains 2 entries
+
+Alias name: myca
+Creation date: Mar 9, 2015
+Entry type: trustedCertEntry
+
+Owner: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Issuer: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Serial number: dae1a90d5b9d5c2e
+Valid from: Thu Mar 05 12:06:55 CET 2015 until: Mon Dec 02 12:06:55 CET 2024
+Certificate fingerprints:
+	 MD5:  35:11:9D:70:58:BC:84:2B:01:D1:93:DF:70:34:79:F8
+	 SHA1: 43:0C:22:26:A5:7A:77:7C:66:99:EA:B4:55:93:3A:5B:7B:35:8C:A9
+	 SHA256: 81:5E:DB:1C:AB:D6:EB:91:DA:10:28:D1:6B:B5:45:CF:
+	         CA:C5:53:21:57:23:7B:9A:E3:27:CB:02:C8:7C:55:20
+	 Signature algorithm name: SHA256withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+#2: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:true
+  PathLen:2147483647
+]
+
+#3: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+
+
+*******************************************
+*******************************************
+
+
+Alias name: localhost
+Creation date: Mar 9, 2015
+Entry type: PrivateKeyEntry
+Certificate chain length: 2
+Certificate[1]:
+Owner: CN=Unknown, OU=Unknown, O=Unknown, L=Unknown, ST=Unknown, C=Unknown
+Issuer: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Serial number: 1
+Valid from: Mon Mar 09 12:52:27 CET 2015 until: Tue Mar 08 12:52:27 CET 2016
+Certificate fingerprints:
+	 MD5:  10:06:C6:30:F1:22:3C:DD:F1:E3:A3:21:EB:67:84:D6
+	 SHA1: 59:42:2E:B9:91:64:E4:11:52:0D:71:0F:13:F3:CB:4D:49:58:20:9E
+	 SHA256: 8F:36:25:C5:45:E3:18:43:E6:06:3E:7B:C3:3E:9C:3B:
+	         44:55:2B:2D:07:A8:A4:48:15:D9:F5:70:E1:6D:88:54
+	 Signature algorithm name: SHA1withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+#2: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:false
+  PathLen: undefined
+]
+
+#3: ObjectId: 2.5.29.15 Criticality=false
+KeyUsage [
+  DigitalSignature
+  Key_Encipherment
+  Key_Agreement
+]
+
+Certificate[2]:
+Owner: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Issuer: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Serial number: dae1a90d5b9d5c2e
+Valid from: Thu Mar 05 12:06:55 CET 2015 until: Mon Dec 02 12:06:55 CET 2024
+Certificate fingerprints:
+	 MD5:  35:11:9D:70:58:BC:84:2B:01:D1:93:DF:70:34:79:F8
+	 SHA1: 43:0C:22:26:A5:7A:77:7C:66:99:EA:B4:55:93:3A:5B:7B:35:8C:A9
+	 SHA256: 81:5E:DB:1C:AB:D6:EB:91:DA:10:28:D1:6B:B5:45:CF:
+	         CA:C5:53:21:57:23:7B:9A:E3:27:CB:02:C8:7C:55:20
+	 Signature algorithm name: SHA256withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+#2: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:true
+  PathLen:2147483647
+]
+
+#3: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+
+
+*******************************************
+*******************************************
+\end{verbatim}
+
+\newpage
+\section{Appendix D: Client KeyStore}
+\begin{verbatim}
+Keystore type: JKS
+Keystore provider: SUN
+
+Your keystore contains 2 entries
+
+Alias name: client
+Creation date: Mar 10, 2015
+Entry type: PrivateKeyEntry
+Certificate chain length: 2
+Certificate[1]:
+Owner: CN=Client Clientson, OU=Clients, O=Clientstuff, L=Client City, ST=Clientia, C=CL
+Issuer: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Serial number: 5
+Valid from: Tue Mar 10 15:15:39 CET 2015 until: Wed Mar 09 15:15:39 CET 2016
+Certificate fingerprints:
+	 MD5:  68:A1:CB:26:CA:F3:96:DE:CA:2A:7B:13:C4:92:26:67
+	 SHA1: AD:A0:F8:E7:63:66:9D:9A:2C:04:DA:9A:85:97:75:95:E0:E1:67:49
+	 SHA256: B1:A6:7D:D5:0B:10:72:94:96:0C:FC:EB:A3:ED:66:CF:
+	         C7:C0:4B:78:E8:A3:3F:8C:60:4B:81:83:C1:84:47:04
+	 Signature algorithm name: SHA1withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+#2: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:false
+  PathLen: undefined
+]
+
+#3: ObjectId: 2.5.29.15 Criticality=false
+KeyUsage [
+  DigitalSignature
+  Non_repudiation
+  Data_Encipherment
+]
+
+Certificate[2]:
+Owner: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Issuer: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Serial number: dae1a90d5b9d5c2e
+Valid from: Thu Mar 05 12:06:55 CET 2015 until: Mon Dec 02 12:06:55 CET 2024
+Certificate fingerprints:
+	 MD5:  35:11:9D:70:58:BC:84:2B:01:D1:93:DF:70:34:79:F8
+	 SHA1: 43:0C:22:26:A5:7A:77:7C:66:99:EA:B4:55:93:3A:5B:7B:35:8C:A9
+	 SHA256: 81:5E:DB:1C:AB:D6:EB:91:DA:10:28:D1:6B:B5:45:CF:
+	         CA:C5:53:21:57:23:7B:9A:E3:27:CB:02:C8:7C:55:20
+	 Signature algorithm name: SHA256withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+#2: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:true
+  PathLen:2147483647
+]
+
+#3: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+
+
+*******************************************
+*******************************************
+
+
+Alias name: myca
+Creation date: Mar 10, 2015
+Entry type: trustedCertEntry
+
+Owner: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Issuer: EMAILADDRESS=ca@demoland.se, CN=Demo CA, OU=CS, O=LU, L=Lund, ST=Scania, C=SE
+Serial number: dae1a90d5b9d5c2e
+Valid from: Thu Mar 05 12:06:55 CET 2015 until: Mon Dec 02 12:06:55 CET 2024
+Certificate fingerprints:
+	 MD5:  35:11:9D:70:58:BC:84:2B:01:D1:93:DF:70:34:79:F8
+	 SHA1: 43:0C:22:26:A5:7A:77:7C:66:99:EA:B4:55:93:3A:5B:7B:35:8C:A9
+	 SHA256: 81:5E:DB:1C:AB:D6:EB:91:DA:10:28:D1:6B:B5:45:CF:
+	         CA:C5:53:21:57:23:7B:9A:E3:27:CB:02:C8:7C:55:20
+	 Signature algorithm name: SHA256withRSA
+	 Version: 3
+
+Extensions: 
+
+#1: ObjectId: 2.5.29.35 Criticality=false
+AuthorityKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+#2: ObjectId: 2.5.29.19 Criticality=false
+BasicConstraints:[
+  CA:true
+  PathLen:2147483647
+]
+
+#3: ObjectId: 2.5.29.14 Criticality=false
+SubjectKeyIdentifier [
+KeyIdentifier [
+0000: 57 25 86 90 20 D1 D7 7E   28 91 67 CB 2E 2C 28 77  W%.. ...(.g..,(w
+0010: ED 0F 55 CD                                        ..U.
+]
+]
+
+
+
+*******************************************
+*******************************************
+\end{verbatim}
+
 \end{document}
