@@ -28,11 +28,15 @@ public class tlsclient {
         TrustManagerFactory tmf = TrustManagerFactory.getInstance("SunX509");
         tmf.init(ts);
 
-        // Keystore  ????
-        KeyManagerFactory kmf =
-            KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-        kmf.init(ts, passphrase_ts);
-
+        KeyManagerFactory kmf;
+        KeyStore ks;
+        // First we need to load a keystore
+        char[] passphrase = "123456".toCharArray();
+        ks = KeyStore.getInstance("JKS");
+        ks.load(new FileInputStream("clientKeyStore.jks"), passphrase);
+        // Initialize a KeyManagerFactory with the KeyStore
+        kmf = KeyManagerFactory.getInstance("SunX509");
+        kmf.init(ks, passphrase);
         SSLContext context = SSLContext.getInstance("TLS");
         TrustManager[] trustManagers = tmf.getTrustManagers();
         KeyManager[] keyManagers = kmf.getKeyManagers();
@@ -43,7 +47,7 @@ public class tlsclient {
 
         OutputStream toServer = s.getOutputStream();
         BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-        //                toServer.write("\nConnection established.\n\n".getBytes());
+//        toServer.write("\nConnection established.\n\n".getBytes());
         System.out.print("\nConnection established.\n\n");
 
         String line = "";
