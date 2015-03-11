@@ -35,7 +35,12 @@
 The distributor of the Java implementation decides what goes into the default TrustStore. Oracle points out that one has to be on control over the location where cacerts and jssecacerts are stored. In adition, one should always set the javax.net.ssl.trustStore property of secure clients and servers to maintain control over trusted certificates.
 \\{\scriptsize$https://access.redhat.com/documentation/en-US/Fuse_MQ_Enterprise/7.1/html/Security_Guide/files/SSL-SysProps.html$}
 \subsection{Assignment 6}
-For instance, if CA's key is not protected with a password, anything can be signed with
+The purpose of the RootCA is to put restrictions on who can sign and what gets signed. This is important to maintain trust in the RootCA. In addition to the RootCA passphrase, the private key is also needed.\\
+The purpose of the trust stores is to control whom to trust. The server and client use separate trust stores, and hence separate passphrases. The key tool forces the creator of the trust store to choose a passphrase.\\
+The key stores store the certificates. When creating
+For instance, if CA's key is not protected with a password, anything can be signed with\\
+-------------------\\
+The server and client each need to remember three passwords; TrustStore, KeyStore and key. It is possible to use the same passphrase for the key store as for the key, thus only needing two passwords. Using a KeyStore is considered a security enhancement, since keys and certificates cannot be acessed or manipulated without the KeyStore passphrase. This is important as the holder of a certificate, I want to be sure that the certificate is only used when I say so. Another benefit is that many files (certificate and key) are stored in one place, and are thus easier to manage.
 \subsection{Assignment 7}
 CertificateExpiredException (?)java.security.cert.CertificateExpiredException: NotAfter: Tue Mar 10 12:44:41 CET 2015
 \subsection{Assignment 8} 
